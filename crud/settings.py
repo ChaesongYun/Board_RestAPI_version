@@ -33,10 +33,17 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my_app
     'articles',
+    'accounts',
 
     # third_party_app
     'django_extensions',
     'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
 
     # django_app
     'django.contrib.admin',
@@ -47,6 +54,19 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+REST_USE_JWT = True                 # JWT 사용 여부
+JWT_AUTH_COOKIE = 'my-app-auth'     # 호출할 Cookie Key 값
+JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token' # Refresh Token Cookie Key 값
+
+SITE_ID = 1                         # 해당 도메인의 id
+ACCOUNT_UNIQUE_EMAIL = True         # User email Unique 여부
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None    # User username type
+ACCOUNT_USERNAME_REQUIRED = False           # User username 필수여부
+ACCOUNT_EMAIL_REQUIRED = True               # User email 필수여부
+ACCOUNT_AUTHENTICATION_METHOD = 'email'     # 로그인 인증 수단
+ACCOUNT_EMAIL_VERIFICATION = 'none'         # Email 인증 필수 여부
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -55,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'crud.urls'
@@ -111,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko'
 
 TIME_ZONE = 'UTC'
 
@@ -129,3 +150,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.User'
