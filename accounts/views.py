@@ -18,3 +18,4 @@ class FollowView(APIView):
 			you.followers.add(me)
 			return Response('follow', status=status.HTTP_200_OK)
 		
+	
