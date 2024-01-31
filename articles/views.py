@@ -44,7 +44,7 @@ def article_detail(request, article_pk):
         # 원래 건 첫번째 인자로, 수정값은 data인자로
         serializer = ArticleSerializer(article, data=request.data)
         if serializer.is_valid():
-            serializer.sav()
+            serializer.save()
             return Response(serializer.data)
         # serializer.data는 우리가 아는 딕셔너리 형태
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
